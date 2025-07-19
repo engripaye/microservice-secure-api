@@ -1,0 +1,4 @@
+- name: Configure local Docker and deploy microservices
+  hosts: local
+  roles:
+    - docker

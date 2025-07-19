@@ -1,0 +1,43 @@
+- name: Ensure Docker service is running
+  win_service:
+    name: com.docker.service
+    state: started
+  become: yes
+  become_method: runas
+  become_user: SYSTEM
+
+- name: Pull User Service image
+  docker_image:
+    name: user-service:latest
+    source: local
+    state: present
+
+- name: Pull Order Service image
+  docker_image:
+    name: order-service:latest
+    source: local
+    state: present
+
+- name: Run User Service container
+  docker_container:
+    name: user-service-container-ansible
+    image: user-service:latest
+    state: started
+    restart_policy: always
+    ports:
+      - "8083:8081"
+  become: yes
+  become_method: runas
+  become_user: SYSTEM
+
+- name: Run Order Service container
+  docker_container:
+    name: order-service-container-ansible
+    image: order-service:latest
+    state: started
+    restart_policy: always
+    ports:
+      - "8084:8082"
+  become: yes
+  become_method: runas
+  become_user: SYSTEM

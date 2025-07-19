@@ -1,4 +1,4 @@
-package org.engripaye.userservice.jwt;
+package org.engripaye.orderservice.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
